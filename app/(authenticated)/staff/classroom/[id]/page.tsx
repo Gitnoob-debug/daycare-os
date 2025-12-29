@@ -294,30 +294,42 @@ export default function ClassroomRosterPage({
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin" />
+        <div className="flex flex-col items-center gap-4">
+          <div className="relative">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 animate-pulse" />
+            <Loader2 className="h-8 w-8 animate-spin text-primary absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+          </div>
+          <p className="text-muted-foreground font-medium">Loading classroom...</p>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="p-8 pb-24">
-      <div className="flex items-center justify-between mb-6">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold">{classroom?.name}</h1>
-          <p className="text-muted-foreground">
-            {checkedInCount} checked in • {checkedOutCount} checked out
+          <div className="flex items-center gap-3 mb-1">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center shadow-lg">
+              <Users className="h-5 w-5 text-white" />
+            </div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">{classroom?.name}</h1>
+          </div>
+          <p className="text-muted-foreground ml-13">
+            Managing {children.length} children today
           </p>
         </div>
 
         <div className="flex gap-2">
           <Link href={`/staff/classroom/${id}/plan`}>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2 rounded-xl hover:bg-purple-50 hover:border-purple-200 hover:text-purple-700 transition-all">
               <Calendar className="h-4 w-4" />
-              Plan
+              Daily Plan
             </Button>
           </Link>
           <Link href={`/staff/classroom/${id}/grid`}>
-            <Button variant="outline" className="gap-2">
+            <Button variant="outline" className="gap-2 rounded-xl hover:bg-teal-50 hover:border-teal-200 hover:text-teal-700 transition-all">
               <LayoutGrid className="h-4 w-4" />
               Faceboard
             </Button>
@@ -326,18 +338,33 @@ export default function ClassroomRosterPage({
       </div>
 
       {/* Stats Bar */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-muted/50 rounded-lg p-4 text-center">
-          <p className="text-2xl font-bold">{children.length}</p>
-          <p className="text-sm text-muted-foreground">Total</p>
+      <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="relative overflow-hidden rounded-2xl bg-white p-5 shadow-soft hover-lift">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-slate-100 to-slate-50 rounded-full transform translate-x-6 -translate-y-6" />
+          <div className="relative">
+            <p className="text-3xl font-bold text-foreground">{children.length}</p>
+            <p className="text-sm font-medium text-muted-foreground">Total Enrolled</p>
+          </div>
         </div>
-        <div className="bg-green-50 rounded-lg p-4 text-center border border-green-200">
-          <p className="text-2xl font-bold text-green-600">{checkedInCount}</p>
-          <p className="text-sm text-green-600">Checked In</p>
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-green-50 p-5 shadow-soft hover-lift border border-emerald-100">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-emerald-100 to-green-100 rounded-full transform translate-x-6 -translate-y-6" />
+          <div className="relative">
+            <div className="flex items-center gap-2">
+              <UserCheck className="h-5 w-5 text-emerald-600" />
+              <p className="text-3xl font-bold text-emerald-600">{checkedInCount}</p>
+            </div>
+            <p className="text-sm font-medium text-emerald-600/80">Checked In</p>
+          </div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-4 text-center border border-gray-200">
-          <p className="text-2xl font-bold text-gray-600">{checkedOutCount}</p>
-          <p className="text-sm text-gray-600">Checked Out</p>
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-50 to-gray-50 p-5 shadow-soft hover-lift border border-slate-100">
+          <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-slate-100 to-gray-100 rounded-full transform translate-x-6 -translate-y-6" />
+          <div className="relative">
+            <div className="flex items-center gap-2">
+              <UserX className="h-5 w-5 text-slate-500" />
+              <p className="text-3xl font-bold text-slate-600">{checkedOutCount}</p>
+            </div>
+            <p className="text-sm font-medium text-slate-500">Checked Out</p>
+          </div>
         </div>
       </div>
 
@@ -349,33 +376,33 @@ export default function ClassroomRosterPage({
             placeholder="Search children..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
+            className="pl-10 rounded-xl border-border/50 bg-white/80 focus:bg-white transition-colors"
           />
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 p-1 bg-muted/50 rounded-xl">
           <Button
-            variant={filter === 'all' ? 'default' : 'outline'}
+            variant={filter === 'all' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setFilter('all')}
-            className="gap-1"
+            className={`gap-1.5 rounded-lg ${filter === 'all' ? 'shadow-md' : ''}`}
           >
             <Users className="h-4 w-4" />
             All
           </Button>
           <Button
-            variant={filter === 'checked_in' ? 'default' : 'outline'}
+            variant={filter === 'checked_in' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setFilter('checked_in')}
-            className="gap-1"
+            className={`gap-1.5 rounded-lg ${filter === 'checked_in' ? 'bg-emerald-500 hover:bg-emerald-600 shadow-md' : 'hover:bg-emerald-50 hover:text-emerald-700'}`}
           >
             <UserCheck className="h-4 w-4" />
             In
           </Button>
           <Button
-            variant={filter === 'checked_out' ? 'default' : 'outline'}
+            variant={filter === 'checked_out' ? 'default' : 'ghost'}
             size="sm"
             onClick={() => setFilter('checked_out')}
-            className="gap-1"
+            className={`gap-1.5 rounded-lg ${filter === 'checked_out' ? 'bg-slate-500 hover:bg-slate-600 shadow-md' : 'hover:bg-slate-50 hover:text-slate-700'}`}
           >
             <UserX className="h-4 w-4" />
             Out
@@ -384,24 +411,30 @@ export default function ClassroomRosterPage({
       </div>
 
       {/* Roster List */}
-      <div className="space-y-2">
-        {filteredChildren.map((child) => (
-          <RosterItem
-            key={child.id}
-            child={child}
-            isSelected={selectedIds.has(child.id)}
-            onToggle={toggleSelection}
-            status={getChildStatus(child)}
-            onCheckIn={() => handleCheckIn(child.id)}
-            onCheckOut={() => handleCheckOut(child.id)}
-          />
-        ))}
+      <div className="bg-white rounded-2xl shadow-soft overflow-hidden border border-border/30">
+        <div className="divide-y divide-border/30">
+          {filteredChildren.map((child) => (
+            <RosterItem
+              key={child.id}
+              child={child}
+              isSelected={selectedIds.has(child.id)}
+              onToggle={toggleSelection}
+              status={getChildStatus(child)}
+              onCheckIn={() => handleCheckIn(child.id)}
+              onCheckOut={() => handleCheckOut(child.id)}
+            />
+          ))}
+        </div>
       </div>
 
       {filteredChildren.length === 0 && (
-        <p className="text-center text-muted-foreground py-8">
-          No children found
-        </p>
+        <div className="flex flex-col items-center justify-center py-16 px-8 text-center">
+          <div className="w-16 h-16 rounded-full bg-muted/50 flex items-center justify-center mb-4">
+            <Users className="h-8 w-8 text-muted-foreground/50" />
+          </div>
+          <p className="text-lg font-medium text-muted-foreground">No children found</p>
+          <p className="text-sm text-muted-foreground/70 mt-1">Try adjusting your search or filter</p>
+        </div>
       )}
 
       {/* Bulk Action Bar */}

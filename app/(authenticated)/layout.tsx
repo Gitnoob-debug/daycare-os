@@ -28,12 +28,14 @@ export default async function AuthenticatedLayout({
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-rose-50/50 via-white to-teal-50/30">
       <DevSwitcher />
       <div className="flex-1 flex">
         <Sidebar profile={profile} />
         <main className="flex-1 overflow-auto">
-          {children}
+          <div className="min-h-full">
+            {children}
+          </div>
         </main>
       </div>
     </div>

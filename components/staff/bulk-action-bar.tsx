@@ -57,70 +57,82 @@ export function BulkActionBar({
     <>
       <div
         className={cn(
-          'fixed bottom-0 left-64 right-0 bg-card border-t shadow-lg p-4',
-          'animate-in slide-in-from-bottom duration-200'
+          'fixed bottom-6 left-72 right-6 z-50',
+          'animate-in slide-in-from-bottom duration-300'
         )}
       >
-        <div className="max-w-4xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">{selectedCount} selected</span>
-            <Button variant="ghost" size="sm" onClick={onClear}>
-              <X className="h-4 w-4" />
-            </Button>
-          </div>
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-soft-lg border border-white/50 p-4 max-w-4xl mx-auto">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/80 text-white font-bold shadow-md">
+                {selectedCount}
+              </div>
+              <span className="font-semibold text-foreground">children selected</span>
+              <Button variant="ghost" size="sm" onClick={onClear} className="rounded-lg hover:bg-red-50 hover:text-red-600">
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
 
-          <div className="flex gap-2 flex-wrap">
-            {onCheckIn && (
+            <div className="flex gap-2 flex-wrap">
+              {onCheckIn && (
+                <Button
+                  onClick={onCheckIn}
+                  className="gap-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl shadow-md shadow-emerald-500/20"
+                >
+                  <LogIn className="h-4 w-4" />
+                  Check In All
+                </Button>
+              )}
+
+              {onCheckOut && (
+                <Button
+                  variant="outline"
+                  onClick={onCheckOut}
+                  className="gap-2 text-slate-600 border-slate-200 hover:bg-slate-50 rounded-xl"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Check Out All
+                </Button>
+              )}
+
+              <div className="w-px bg-border/50 mx-1" />
+
               <Button
                 variant="outline"
-                onClick={onCheckIn}
-                className="gap-2 text-green-600 border-green-200 hover:bg-green-50"
+                onClick={() => setMealDrawerOpen(true)}
+                className="gap-2 rounded-xl hover:bg-amber-50 hover:border-amber-200 hover:text-amber-700"
               >
-                <LogIn className="h-4 w-4" />
-                Check In
+                <Utensils className="h-4 w-4" />
+                Meals
               </Button>
-            )}
 
-            {onCheckOut && (
               <Button
                 variant="outline"
-                onClick={onCheckOut}
-                className="gap-2 text-gray-600 border-gray-200 hover:bg-gray-50"
+                onClick={onNap}
+                className="gap-2 rounded-xl hover:bg-indigo-50 hover:border-indigo-200 hover:text-indigo-700"
               >
-                <LogOut className="h-4 w-4" />
-                Check Out
+                <Moon className="h-4 w-4" />
+                Nap
               </Button>
-            )}
 
-            <div className="w-px bg-border mx-1" />
+              <Button
+                variant="outline"
+                onClick={onPhoto}
+                className="gap-2 rounded-xl hover:bg-pink-50 hover:border-pink-200 hover:text-pink-700"
+              >
+                <Camera className="h-4 w-4" />
+                Photo
+              </Button>
 
-            <Button
-              variant="outline"
-              onClick={() => setMealDrawerOpen(true)}
-              className="gap-2"
-            >
-              <Utensils className="h-4 w-4" />
-              Meals
-            </Button>
-
-            <Button variant="outline" onClick={onNap} className="gap-2">
-              <Moon className="h-4 w-4" />
-              Nap
-            </Button>
-
-            <Button variant="outline" onClick={onPhoto} className="gap-2">
-              <Camera className="h-4 w-4" />
-              Photo
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => setPottyDrawerOpen(true)}
-              className="gap-2"
-            >
-              <Baby className="h-4 w-4" />
-              Potty
-            </Button>
+              <Button
+                variant="outline"
+                onClick={() => setPottyDrawerOpen(true)}
+                className="gap-2 rounded-xl hover:bg-cyan-50 hover:border-cyan-200 hover:text-cyan-700"
+              >
+                <Baby className="h-4 w-4" />
+                Potty
+              </Button>
+            </div>
           </div>
         </div>
       </div>
