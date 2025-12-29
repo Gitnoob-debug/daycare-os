@@ -248,14 +248,14 @@ export default function ManageChildrenPage() {
               <div className="space-y-2">
                 <Label htmlFor="classroom">Classroom</Label>
                 <Select
-                  value={formData.classroom_id}
-                  onValueChange={(value) => setFormData({ ...formData, classroom_id: value })}
+                  value={formData.classroom_id || "none"}
+                  onValueChange={(value) => setFormData({ ...formData, classroom_id: value === "none" ? "" : value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select a classroom" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No classroom assigned</SelectItem>
+                    <SelectItem value="none">No classroom assigned</SelectItem>
                     {classrooms.map((c) => (
                       <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>
                     ))}
@@ -265,14 +265,14 @@ export default function ManageChildrenPage() {
               <div className="space-y-2">
                 <Label htmlFor="parent">Parent Account</Label>
                 <Select
-                  value={formData.parent_id}
-                  onValueChange={(value) => setFormData({ ...formData, parent_id: value })}
+                  value={formData.parent_id || "none"}
+                  onValueChange={(value) => setFormData({ ...formData, parent_id: value === "none" ? "" : value })}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Link to parent account" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No parent linked</SelectItem>
+                    <SelectItem value="none">No parent linked</SelectItem>
                     {parents.map((p) => (
                       <SelectItem key={p.id} value={p.id}>{p.full_name} ({p.email})</SelectItem>
                     ))}
