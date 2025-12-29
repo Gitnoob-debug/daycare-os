@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Badge } from '@/components/ui/badge'
 import { useToast } from '@/components/ui/use-toast'
-import { LayoutGrid, Search, Loader2, UserCheck, UserX, Users } from 'lucide-react'
+import { LayoutGrid, Search, Loader2, UserCheck, UserX, Users, Calendar } from 'lucide-react'
 import Link from 'next/link'
 
 interface ChildWithActivity extends Child {
@@ -309,12 +309,20 @@ export default function ClassroomRosterPage({
           </p>
         </div>
 
-        <Link href={`/staff/classroom/${id}/grid`}>
-          <Button variant="outline" className="gap-2">
-            <LayoutGrid className="h-4 w-4" />
-            Faceboard
-          </Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href={`/staff/classroom/${id}/plan`}>
+            <Button variant="outline" className="gap-2">
+              <Calendar className="h-4 w-4" />
+              Plan
+            </Button>
+          </Link>
+          <Link href={`/staff/classroom/${id}/grid`}>
+            <Button variant="outline" className="gap-2">
+              <LayoutGrid className="h-4 w-4" />
+              Faceboard
+            </Button>
+          </Link>
+        </div>
       </div>
 
       {/* Stats Bar */}

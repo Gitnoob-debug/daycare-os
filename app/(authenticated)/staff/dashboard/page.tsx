@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Users, LayoutGrid, List } from 'lucide-react'
+import { Users, LayoutGrid, List, Calendar } from 'lucide-react'
 
 export default async function StaffDashboardPage() {
   const supabase = await createClient()
@@ -98,17 +98,23 @@ export default async function StaffDashboardPage() {
                   </Badge>
                 </div>
 
-                <div className="flex gap-2">
-                  <Link href={`/staff/classroom/${cr.id}`} className="flex-1">
-                    <Button variant="outline" className="w-full gap-2">
+                <div className="grid grid-cols-3 gap-2">
+                  <Link href={`/staff/classroom/${cr.id}`}>
+                    <Button variant="outline" className="w-full gap-1 text-xs px-2">
                       <List className="h-4 w-4" />
                       Roster
                     </Button>
                   </Link>
-                  <Link href={`/staff/classroom/${cr.id}/grid`} className="flex-1">
-                    <Button variant="outline" className="w-full gap-2">
+                  <Link href={`/staff/classroom/${cr.id}/grid`}>
+                    <Button variant="outline" className="w-full gap-1 text-xs px-2">
                       <LayoutGrid className="h-4 w-4" />
-                      Faceboard
+                      Faces
+                    </Button>
+                  </Link>
+                  <Link href={`/staff/classroom/${cr.id}/plan`}>
+                    <Button variant="outline" className="w-full gap-1 text-xs px-2">
+                      <Calendar className="h-4 w-4" />
+                      Plan
                     </Button>
                   </Link>
                 </div>
