@@ -3,7 +3,14 @@
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
-import { Profile } from '@/types/supabase'
+// Simplified profile type for sidebar
+interface SidebarProfile {
+  id: string
+  email: string
+  full_name: string
+  role: string
+  avatar_url: string | null
+}
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -19,10 +26,12 @@ import {
   Camera,
   BarChart3,
   Mail,
+  School,
+  UserCog,
 } from 'lucide-react'
 
 interface SidebarProps {
-  profile: Profile
+  profile: SidebarProfile
 }
 
 const parentLinks = [
@@ -37,6 +46,9 @@ const staffLinks = [
 
 const adminLinks = [
   { href: '/admin/dashboard', label: 'The Pulse', icon: BarChart3 },
+  { href: '/admin/classrooms', label: 'Classrooms', icon: School },
+  { href: '/admin/children', label: 'Children', icon: Baby },
+  { href: '/admin/staff', label: 'Staff', icon: UserCog },
   { href: '/admin/messaging', label: 'Shadow Inbox', icon: Mail },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ]

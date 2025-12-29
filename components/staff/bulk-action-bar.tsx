@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
-import { Utensils, Moon, Camera, Baby, X } from 'lucide-react'
+import { Utensils, Moon, Camera, Baby, X, LogIn, LogOut } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface BulkActionBarProps {
@@ -20,6 +20,8 @@ interface BulkActionBarProps {
   onNap: () => void
   onPhoto: () => void
   onPotty: (type: string) => void
+  onCheckIn?: () => void
+  onCheckOut?: () => void
   onClear: () => void
 }
 
@@ -29,6 +31,8 @@ export function BulkActionBar({
   onNap,
   onPhoto,
   onPotty,
+  onCheckIn,
+  onCheckOut,
   onClear,
 }: BulkActionBarProps) {
   const [mealDrawerOpen, setMealDrawerOpen] = useState(false)
@@ -65,7 +69,31 @@ export function BulkActionBar({
             </Button>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
+            {onCheckIn && (
+              <Button
+                variant="outline"
+                onClick={onCheckIn}
+                className="gap-2 text-green-600 border-green-200 hover:bg-green-50"
+              >
+                <LogIn className="h-4 w-4" />
+                Check In
+              </Button>
+            )}
+
+            {onCheckOut && (
+              <Button
+                variant="outline"
+                onClick={onCheckOut}
+                className="gap-2 text-gray-600 border-gray-200 hover:bg-gray-50"
+              >
+                <LogOut className="h-4 w-4" />
+                Check Out
+              </Button>
+            )}
+
+            <div className="w-px bg-border mx-1" />
+
             <Button
               variant="outline"
               onClick={() => setMealDrawerOpen(true)}
